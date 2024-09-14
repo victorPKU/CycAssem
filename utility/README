@@ -1,1 +1,18 @@
+#targetframe: rotate the target protein structure to the user defined coordinate frame
+gcc targetframe.c -o targetframe -lm
+
+#getBestDocking: get the top N docking fragments
+gcc getBestDocking.c -o getBestDocking
+
+#genBuildcommand: generate the structure building commands for the best fragments
+gcc genBuildcommand.c -o genBuildcommand
+
+#getfragpair: search for pairs of the docked fragment at the two boxes and calculate the geometery of the gaps
+gcc getfragpair.c -o getfragpair -lm
+
+#AssembleCyc:assemble the docking fragments and linking fragments and build the cyclic peptide structure models
+gcc AssembleCyc.c -o AssembleCyc -lm
+
+#SelectBuildcomplex:select the best cyclic peptides with screening thresholds and build the peptide-target complex structures
+gcc SelectBuildcomplex.c -o SelectBuildcomplex
 
