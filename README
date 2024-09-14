@@ -1,0 +1,342 @@
+
+######################################CycAssem######################################################
+
+ #                            CycAssem
+ #   Cyclic peptide binder design using a fragment docking and assembling strategy   
+ #                Written by ZHANG Changsheng 
+ #  Copyright (c) 2024 Molecular Design Lab at Peking University, Beijing, China  
+ 
+ #    contact: changshengzhang@pku.edu.cn, lhlai@pku.edu.cn
+
+#################################START##############################################################
+ # Show the design process of ALK1 binding cyclic peptides step by step:
+
+#######################Target protein preparation before fragment-peptide docking###################
+$ cd ALK1cycdes/
+$ more frame.pdb  #define the coordinate frame
+
+ATOM      1  O   ALA B 361      25.072 -20.981 -45.006  1.00 42.10           C  
+ATOM      2  CD  LEU B 375      26.114 -32.317 -41.141  1.00 56.34           C  
+ATOM      3  CZ2 TRP B 337      31.015 -30.723 -40.260  1.00 45.44           C  
+END
+$ ../utility/targetframe ALK1orig.pdb frame.pdb ALK1target.pdb #rotate target protein, here ALK1, as the defined frame
+box1         -5.976   0.002  -0.001
+box2          5.976  -0.002   0.001
+box2-box1    11.952  -0.004   0.001
+
+$ ../SDOCK2.0-restrict/preprocess ALK1target.pdb -o ALK1box1.pdb -a ../SDOCK2.0-restrict/ATM -m -5.976,0.002,-0.001
+                             SDOCK2.0
+  Global Protein-Protein Docking Using Stepwise Force-Field Potentials   
+ Copyright (c) 2024 Molecular design lab in Peking university, Beijing, China
+
+ preprocess: preprocess the origin protein structure file (PDB format) to the SDOCK input file
+
+==> The input file ALK1target.pdb is successfully processed to ALK1box1.pdb now!
+
+$ ../SDOCK2.0-restrict/preprocess ALK1target.pdb -o ALK1box2.pdb -a ../SDOCK2.0-restrict/ATM -m 5.976,-0.002,0.001
+                             SDOCK2.0
+  Global Protein-Protein Docking Using Stepwise Force-Field Potentials   
+ Copyright (c) 2024 Molecular design lab in Peking university, Beijing, China
+
+ preprocess: preprocess the origin protein structure file (PDB format) to the SDOCK input file
+
+==> The input file ALK1target.pdb is successfully processed to ALK1box2.pdb now!
+$ ../SDOCK2.0-restrict/watmap ALK1box1.pdb ALK1box1wat.pdb
+                             SDOCK2.0
+  Global Protein-Protein Docking Using Stepwise Force-Field Potentials   
+ Copyright (c) 2024 Molecular design lab in Peking university, Beijing, China
+
+ watmap: build the water map on the protein surface
+generate mattergrid
+generate HBgrid
+generate pocketgrid
+generate watenegrid
+print pocket water ALK1box1wat.pdb!
+
+$ ../SDOCK2.0-restrict/watmap ALK1box2.pdb ALK1box2wat.pdb
+                             SDOCK2.0
+  Global Protein-Protein Docking Using Stepwise Force-Field Potentials   
+ Copyright (c) 2024 Molecular design lab in Peking university, Beijing, China
+
+ watmap: build the water map on the protein surface
+generate mattergrid
+generate HBgrid
+generate pocketgrid
+generate watenegrid
+print pocket water ALK1box2wat.pdb!
+
+#######################Fragment library preparation before fragment-peptide docking###################
+$ ls ../fraglib_pdbid_res/  #these files are the pdbid and the first residue numbers of the fragments in the complete library 
+Pentafraglib  Tetrafraglib  Triplefraglib
+
+$ cd ../fraglib/   #a mini fragment library as a example
+$ more fragprocess.sh 
+../SDOCK2.0-restrict/preprocess  Tp_3ljkA_0226.pdb  -o   preprocessed/Tp_p_3ljkA_0226.pdb   -a ../SDOCK2.0-restrict/ATM
+../SDOCK2.0-restrict/preprocess  Tp_5a7gA_0218.pdb  -o   preprocessed/Tp_p_5a7gA_0218.pdb   -a ../SDOCK2.0-restrict/ATM
+../SDOCK2.0-restrict/preprocess  Tp_5e3xA_0343.pdb  -o   preprocessed/Tp_p_5e3xA_0343.pdb   -a ../SDOCK2.0-restrict/ATM
+../SDOCK2.0-restrict/preprocess  Tp_5jscA_0010.pdb  -o   preprocessed/Tp_p_5jscA_0010.pdb   -a ../SDOCK2.0-restrict/ATM
+../SDOCK2.0-restrict/preprocess  Tp_6p2nA_0259.pdb  -o   preprocessed/Tp_p_6p2nA_0259.pdb   -a ../SDOCK2.0-restrict/ATM
+../SDOCK2.0-restrict/preprocess  Tp_6rjcA_0324.pdb  -o   preprocessed/Tp_p_6rjcA_0324.pdb   -a ../SDOCK2.0-restrict/ATM
+$ ./fragprocess.sh 
+
+$ more fragwater.sh 
+../SDOCK2.0-restrict/watmap  preprocessed/Tp_p_3ljkA_0226.pdb  watmap/Tp_w_3ljkA_0226.pdb
+../SDOCK2.0-restrict/watmap  preprocessed/Tp_p_5a7gA_0218.pdb  watmap/Tp_w_5a7gA_0218.pdb
+../SDOCK2.0-restrict/watmap  preprocessed/Tp_p_5e3xA_0343.pdb  watmap/Tp_w_5e3xA_0343.pdb
+../SDOCK2.0-restrict/watmap  preprocessed/Tp_p_5jscA_0010.pdb  watmap/Tp_w_5jscA_0010.pdb
+../SDOCK2.0-restrict/watmap  preprocessed/Tp_p_6p2nA_0259.pdb  watmap/Tp_w_6p2nA_0259.pdb
+../SDOCK2.0-restrict/watmap  preprocessed/Tp_p_6rjcA_0324.pdb  watmap/Tp_w_6rjcA_0324.pdb
+$ ./fragwater.sh
+
+
+#######################Fragment-peptide docking using SDOCK2.0-restrict with a batch mode###################
+
+$ cd ../ALK1cycdes/
+
+$ ls ../fraglib/preprocessed/Tp_*.pdb > fragstruct
+$ ls ../fraglib/watmap/Tp_*.pdb > fragwatmap
+$ cat fragstruct | cut -c25-39 > box1recordf
+$ sed -i 's/Tp_p/dockresult\/ALK1box1/g' box1recordf
+$ cat fragstruct | cut -c25-39 > box2recordf
+$ sed -i 's/Tp_p/dockresult\/ALK1box2/g' box2recordf
+
+$ ../SDOCK2.0-restrict/sdock ALK1box1.pdb fragstruct ALK1box1wat.pdb fragwatmap -c 0.20 -x 12 -B 1 -o box1recordf -p 0 -r ../SDOCK2.0-restrict/so3layer_648.qua -n 10 -d 1.3   #-B 1: batch mode -x docking box size 
+                             SDOCK2.0
+  Global Protein-Protein Docking Using Stepwise Force-Field Potentials   
+ Copyright (c) 2024 Molecular design lab in Peking university, Beijing, China
+
+ sdock: protein-protein docking and save results.
+../fraglib/preprocessed/Tp_p_3ljkA_0226.pdb  ../fraglib/watmap/Tp_w_3ljkA_0226.pdb  dockresult/ALK1box1_3ljkA_0226
+==> fragstruct + ALK1box1wat.pdb DOCKING RUNTIME:  0: 0: 1:33 
+../fraglib/preprocessed/Tp_p_5a7gA_0218.pdb  ../fraglib/watmap/Tp_w_5a7gA_0218.pdb  dockresult/ALK1box1_5a7gA_0218
+==> fragstruct + ALK1box1wat.pdb DOCKING RUNTIME:  0: 0: 2:57 
+../fraglib/preprocessed/Tp_p_5e3xA_0343.pdb  ../fraglib/watmap/Tp_w_5e3xA_0343.pdb  dockresult/ALK1box1_5e3xA_0343
+==> fragstruct + ALK1box1wat.pdb DOCKING RUNTIME:  0: 0: 3:82 
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb  ../fraglib/watmap/Tp_w_5jscA_0010.pdb  dockresult/ALK1box1_5jscA_0010
+==> fragstruct + ALK1box1wat.pdb DOCKING RUNTIME:  0: 0: 5: 5 
+../fraglib/preprocessed/Tp_p_6p2nA_0259.pdb  ../fraglib/watmap/Tp_w_6p2nA_0259.pdb  dockresult/ALK1box1_6p2nA_0259
+==> fragstruct + ALK1box1wat.pdb DOCKING RUNTIME:  0: 0: 6:23 
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb  ../fraglib/watmap/Tp_w_6rjcA_0324.pdb  dockresult/ALK1box1_6rjcA_0324
+==> fragstruct + ALK1box1wat.pdb DOCKING RUNTIME:  0: 0: 7:40 
+
+$  ../SDOCK2.0-restrict/sdock ALK1box2.pdb fragstruct ALK1box2wat.pdb fragwatmap -c 0.20 -x 12 -B 1 -o box2recordf -p 0 -r ../SDOCK2.0-restrict/so3layer_648.qua -n 10 -d 1.3
+                             SDOCK2.0
+  Global Protein-Protein Docking Using Stepwise Force-Field Potentials   
+ Copyright (c) 2024 Molecular design lab in Peking university, Beijing, China
+
+ sdock: protein-protein docking and save results.
+../fraglib/preprocessed/Tp_p_3ljkA_0226.pdb  ../fraglib/watmap/Tp_w_3ljkA_0226.pdb  dockresult/ALK1box2_3ljkA_0226
+==> fragstruct + ALK1box2wat.pdb DOCKING RUNTIME:  0: 0: 1:36 
+../fraglib/preprocessed/Tp_p_5a7gA_0218.pdb  ../fraglib/watmap/Tp_w_5a7gA_0218.pdb  dockresult/ALK1box2_5a7gA_0218
+==> fragstruct + ALK1box2wat.pdb DOCKING RUNTIME:  0: 0: 2:60 
+../fraglib/preprocessed/Tp_p_5e3xA_0343.pdb  ../fraglib/watmap/Tp_w_5e3xA_0343.pdb  dockresult/ALK1box2_5e3xA_0343
+==> fragstruct + ALK1box2wat.pdb DOCKING RUNTIME:  0: 0: 3:86 
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb  ../fraglib/watmap/Tp_w_5jscA_0010.pdb  dockresult/ALK1box2_5jscA_0010
+==> fragstruct + ALK1box2wat.pdb DOCKING RUNTIME:  0: 0: 5:10 
+../fraglib/preprocessed/Tp_p_6p2nA_0259.pdb  ../fraglib/watmap/Tp_w_6p2nA_0259.pdb  dockresult/ALK1box2_6p2nA_0259
+==> fragstruct + ALK1box2wat.pdb DOCKING RUNTIME:  0: 0: 6:29 
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb  ../fraglib/watmap/Tp_w_6rjcA_0324.pdb  dockresult/ALK1box2_6rjcA_0324
+==> fragstruct + ALK1box2wat.pdb DOCKING RUNTIME:  0: 0: 7:46 
+
+$ more dockresult/ALK1box1_5jscA_0010 # An example of the docking record file
+%SDOCK result for the docking work: (with explict water)
+   Protein A: static ALK1box1.pdb
+   Protein B: mobile ../fraglib/preprocessed/Tp_p_5jscA_0010.pdb
+%rotation sampling file: ../SDOCK2.0-restrict/so3layer_648.qua
+%weights of score terms (collision, electrostatic, desolvation, water, induction, bbNHB, bbOHB):   0.200   1.400   0.600   1.000   4.000   1.000   7.000
+%cluster file: dockresult/ALK1box1_5jscA_0010
+%cluster number: 10
+%cluster radius: 1.300
+%cluster no MIRMSD  |    rota     x       y      z    |     score:collision  vdw     ele     sol     wat     ind     hbN     hbO
+1     1       0.000 |     252  -3.600   1.200  -1.200 |   -33.047:   2.000 -30.494  -0.060   0.559  -3.010  -0.049   0.000   0.000
+2     1       0.000 |     578   0.000   0.000  -1.200 |   -31.821:   1.000 -31.790  -0.317   8.490  -2.721  -0.089  -0.009  -0.256
+3     1       0.000 |     218  -1.200   0.000  -1.200 |   -29.946:   5.000 -32.450  -0.182   9.154  -3.011  -0.181  -0.000   0.000
+4     1       0.000 |     578  -1.200   1.200  -1.200 |   -29.873:  10.000 -30.775  -0.086   4.335  -2.948  -0.042  -0.000  -0.066
+5     1       0.000 |       7  -1.200   0.000  -1.200 |   -29.803:   4.000 -32.038  -0.425   9.106  -2.131  -0.168  -0.006  -0.089
+6     1       0.000 |     553   0.000   0.000  -1.200 |   -29.772:  10.000 -32.646  -0.271   9.425  -2.574  -0.098  -0.005  -0.204
+7     1       0.000 |     374  -1.200   0.000  -1.200 |   -29.394:   4.000 -28.290  -0.283   3.311  -2.544  -0.082  -0.000  -0.089
+8     1       0.000 |     398  -1.200   0.000  -1.200 |   -29.357:   2.000 -31.162  -0.194   8.582  -2.174  -0.084  -0.000  -0.137
+9     1       0.000 |     301   0.000   0.000  -1.200 |   -29.281:   2.000 -30.208  -0.063   6.127  -2.643  -0.104   0.000   0.000
+10    1       0.000 |     398  -2.400   0.000   0.000 |   -29.101:   7.000 -31.316  -0.044   7.514  -2.628  -0.086   0.000  -0.094
+
+#######################Collect the best docking results and build the binding model of the fragments###################
+
+$ ../utility/getBestDocking box1recordf box1bestdocking 20  # get the top 20 for box1
+$ more box1bestdocking
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box1_6rjcA_0324  1  -35.817
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb dockresult/ALK1box1_5jscA_0010  1  -33.047
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb dockresult/ALK1box1_5jscA_0010  2  -31.821
+../fraglib/preprocessed/Tp_p_3ljkA_0226.pdb dockresult/ALK1box1_3ljkA_0226  1  -30.787
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb dockresult/ALK1box1_5jscA_0010  3  -29.946
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb dockresult/ALK1box1_5jscA_0010  4  -29.873
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb dockresult/ALK1box1_5jscA_0010  5  -29.803
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb dockresult/ALK1box1_5jscA_0010  6  -29.772
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb dockresult/ALK1box1_5jscA_0010  7  -29.394
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb dockresult/ALK1box1_5jscA_0010  8  -29.357
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb dockresult/ALK1box1_5jscA_0010  9  -29.281
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box1_6rjcA_0324  2  -29.195
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb dockresult/ALK1box1_5jscA_0010 10  -29.101
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box1_6rjcA_0324  3  -28.852
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box1_6rjcA_0324  4  -28.796
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box1_6rjcA_0324  5  -28.529
+../fraglib/preprocessed/Tp_p_3ljkA_0226.pdb dockresult/ALK1box1_3ljkA_0226  2  -28.437
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box1_6rjcA_0324  6  -28.422
+../fraglib/preprocessed/Tp_p_5e3xA_0343.pdb dockresult/ALK1box1_5e3xA_0343  1  -28.345
+../fraglib/preprocessed/Tp_p_5e3xA_0343.pdb dockresult/ALK1box1_5e3xA_0343  2  -28.219
+
+$ ../utility/getBestDocking box2recordf box2bestdocking 20 # get the top 20 for box2
+$ more box2bestdocking
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box2_6rjcA_0324  1  -28.403
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box2_6rjcA_0324  2  -28.386
+../fraglib/preprocessed/Tp_p_5e3xA_0343.pdb dockresult/ALK1box2_5e3xA_0343  1  -27.788
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box2_6rjcA_0324  3  -27.082
+../fraglib/preprocessed/Tp_p_5e3xA_0343.pdb dockresult/ALK1box2_5e3xA_0343  2  -26.753
+../fraglib/preprocessed/Tp_p_5e3xA_0343.pdb dockresult/ALK1box2_5e3xA_0343  3  -26.551
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box2_6rjcA_0324  4  -26.544
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box2_6rjcA_0324  5  -26.354
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box2_6rjcA_0324  6  -26.170
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb dockresult/ALK1box2_5jscA_0010  1  -25.916
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box2_6rjcA_0324  7  -25.905
+../fraglib/preprocessed/Tp_p_5e3xA_0343.pdb dockresult/ALK1box2_5e3xA_0343  4  -25.866
+../fraglib/preprocessed/Tp_p_5e3xA_0343.pdb dockresult/ALK1box2_5e3xA_0343  5  -25.824
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb dockresult/ALK1box2_5jscA_0010  2  -25.560
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box2_6rjcA_0324  8  -25.369
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box2_6rjcA_0324  9  -25.318
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb dockresult/ALK1box2_5jscA_0010  3  -25.284
+../fraglib/preprocessed/Tp_p_5e3xA_0343.pdb dockresult/ALK1box2_5e3xA_0343  6  -25.260
+../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb dockresult/ALK1box2_6rjcA_0324 10  -25.219
+../fraglib/preprocessed/Tp_p_5jscA_0010.pdb dockresult/ALK1box2_5jscA_0010  4  -24.939
+
+$ ../utility/genBuildcommand box1bestdocking genbox1frag.sh ../SDOCK2.0-restrict/build ALK1box1.pdb dockmodel ../SDOCK2.0-restrict/so3layer_648.qua   0,0,0
+$ head -5 genbox1frag.sh #generate build model for box1
+../SDOCK2.0-restrict/build ALK1box1.pdb  ../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb  -o dockresult/ALK1box1_6rjcA_0324  -n ALK1box1_6rjcA_0324  -d dockmodel  -c  1  -m 1  -l 1  -r ../SDOCK2.0-restrict/so3layer_648.qua  -s 0,0,0
+../SDOCK2.0-restrict/build ALK1box1.pdb  ../fraglib/preprocessed/Tp_p_5jscA_0010.pdb  -o dockresult/ALK1box1_5jscA_0010  -n ALK1box1_5jscA_0010  -d dockmodel  -c  1  -m 1  -l 1  -r ../SDOCK2.0-restrict/so3layer_648.qua  -s 0,0,0
+../SDOCK2.0-restrict/build ALK1box1.pdb  ../fraglib/preprocessed/Tp_p_5jscA_0010.pdb  -o dockresult/ALK1box1_5jscA_0010  -n ALK1box1_5jscA_0010  -d dockmodel  -c  2  -m 1  -l 1  -r ../SDOCK2.0-restrict/so3layer_648.qua  -s 0,0,0
+../SDOCK2.0-restrict/build ALK1box1.pdb  ../fraglib/preprocessed/Tp_p_3ljkA_0226.pdb  -o dockresult/ALK1box1_3ljkA_0226  -n ALK1box1_3ljkA_0226  -d dockmodel  -c  1  -m 1  -l 1  -r ../SDOCK2.0-restrict/so3layer_648.qua  -s 0,0,0
+../SDOCK2.0-restrict/build ALK1box1.pdb  ../fraglib/preprocessed/Tp_p_5jscA_0010.pdb  -o dockresult/ALK1box1_5jscA_0010  -n ALK1box1_5jscA_0010  -d dockmodel  -c  3  -m 1  -l 1  -r ../SDOCK2.0-restrict/so3layer_648.qua  -s 0,0,0
+
+$ ../utility/genBuildcommand box2bestdocking genbox2frag.sh ../SDOCK2.0-restrict/build ALK1box2.pdb dockmodel ../SDOCK2.0-restrict/so3layer_648.qua   -11.952,0.004,-0.002 #generate build model for box2, with a shift  (-5.976,0.002,-0.001)-(5.976,-0.002,0.001)
+$ head -5 genbox2frag.sh
+../SDOCK2.0-restrict/build ALK1box2.pdb  ../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb  -o dockresult/ALK1box2_6rjcA_0324  -n ALK1box2_6rjcA_0324  -d dockmodel  -c  1  -m 1  -l 1  -r ../SDOCK2.0-restrict/so3layer_648.qua  -s -11.952,0.004,-0.002
+../SDOCK2.0-restrict/build ALK1box2.pdb  ../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb  -o dockresult/ALK1box2_6rjcA_0324  -n ALK1box2_6rjcA_0324  -d dockmodel  -c  2  -m 1  -l 1  -r ../SDOCK2.0-restrict/so3layer_648.qua  -s -11.952,0.004,-0.002
+../SDOCK2.0-restrict/build ALK1box2.pdb  ../fraglib/preprocessed/Tp_p_5e3xA_0343.pdb  -o dockresult/ALK1box2_5e3xA_0343  -n ALK1box2_5e3xA_0343  -d dockmodel  -c  1  -m 1  -l 1  -r ../SDOCK2.0-restrict/so3layer_648.qua  -s -11.952,0.004,-0.002
+../SDOCK2.0-restrict/build ALK1box2.pdb  ../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb  -o dockresult/ALK1box2_6rjcA_0324  -n ALK1box2_6rjcA_0324  -d dockmodel  -c  3  -m 1  -l 1  -r ../SDOCK2.0-restrict/so3layer_648.qua  -s -11.952,0.004,-0.002
+../SDOCK2.0-restrict/build ALK1box2.pdb  ../fraglib/preprocessed/Tp_p_5e3xA_0343.pdb  -o dockresult/ALK1box2_5e3xA_0343  -n ALK1box2_5e3xA_0343  -d dockmodel  -c  2  -m 1  -l 1  -r ../SDOCK2.0-restrict/so3layer_648.qua  -s -11.952,0.004,-0.002
+
+$ ./genbox1frag.sh  # batch job for building docking model
+$ ./genbox2frag.sh
+$ ls dockmodel #the docked fragment models
+SDOCK_ALK1box1_3ljkA_0226_0001_001.pdb  SDOCK_ALK1box1_5jscA_0010_0007_001.pdb  SDOCK_ALK1box2_5e3xA_0343_0001_001.pdb  SDOCK_ALK1box2_6rjcA_0324_0001_001.pdb
+SDOCK_ALK1box1_3ljkA_0226_0002_001.pdb  SDOCK_ALK1box1_5jscA_0010_0008_001.pdb  SDOCK_ALK1box2_5e3xA_0343_0002_001.pdb  SDOCK_ALK1box2_6rjcA_0324_0002_001.pdb
+SDOCK_ALK1box1_5e3xA_0343_0001_001.pdb  SDOCK_ALK1box1_5jscA_0010_0009_001.pdb  SDOCK_ALK1box2_5e3xA_0343_0003_001.pdb  SDOCK_ALK1box2_6rjcA_0324_0003_001.pdb
+SDOCK_ALK1box1_5e3xA_0343_0002_001.pdb  SDOCK_ALK1box1_5jscA_0010_0010_001.pdb  SDOCK_ALK1box2_5e3xA_0343_0004_001.pdb  SDOCK_ALK1box2_6rjcA_0324_0004_001.pdb
+SDOCK_ALK1box1_5jscA_0010_0001_001.pdb  SDOCK_ALK1box1_6rjcA_0324_0001_001.pdb  SDOCK_ALK1box2_5e3xA_0343_0005_001.pdb  SDOCK_ALK1box2_6rjcA_0324_0005_001.pdb
+SDOCK_ALK1box1_5jscA_0010_0002_001.pdb  SDOCK_ALK1box1_6rjcA_0324_0002_001.pdb  SDOCK_ALK1box2_5e3xA_0343_0006_001.pdb  SDOCK_ALK1box2_6rjcA_0324_0006_001.pdb
+SDOCK_ALK1box1_5jscA_0010_0003_001.pdb  SDOCK_ALK1box1_6rjcA_0324_0003_001.pdb  SDOCK_ALK1box2_5jscA_0010_0001_001.pdb  SDOCK_ALK1box2_6rjcA_0324_0007_001.pdb
+SDOCK_ALK1box1_5jscA_0010_0004_001.pdb  SDOCK_ALK1box1_6rjcA_0324_0004_001.pdb  SDOCK_ALK1box2_5jscA_0010_0002_001.pdb  SDOCK_ALK1box2_6rjcA_0324_0008_001.pdb
+SDOCK_ALK1box1_5jscA_0010_0005_001.pdb  SDOCK_ALK1box1_6rjcA_0324_0005_001.pdb  SDOCK_ALK1box2_5jscA_0010_0003_001.pdb  SDOCK_ALK1box2_6rjcA_0324_0009_001.pdb
+SDOCK_ALK1box1_5jscA_0010_0006_001.pdb  SDOCK_ALK1box1_6rjcA_0324_0006_001.pdb  SDOCK_ALK1box2_5jscA_0010_0004_001.pdb  SDOCK_ALK1box2_6rjcA_0324_0010_001.pdb
+
+#######################Docked fragment pairing###################
+
+$ ls dockmodel/SDOCK_ALK1box1_*.pdb > box1dockfrag
+$ ls dockmodel/SDOCK_ALK1box2_*.pdb > box2dockfrag
+
+$ ../utility/getfragpair box1dockfrag box2dockfrag -56.0 8 > ALK1dockfragpair # pairing base collision and terminal distance, -56.0: the highest total docking score, 8: the maximium total length of the two linking fragments
+$ head -5  ALK1dockfragpair 
+dockmodel/SDOCK_ALK1box1_3ljkA_0226_0001_001.pdb dockmodel/SDOCK_ALK1box2_5e3xA_0343_0002_001.pdb  -30.787 -26.753   1:    9.577 140.874  68.396 158.864  82.688 152.821   7.359 1:    6.920  33.617  94.275 116.855  82.986 121.550-153.800 
+dockmodel/SDOCK_ALK1box1_3ljkA_0226_0001_001.pdb dockmodel/SDOCK_ALK1box2_5e3xA_0343_0005_001.pdb  -30.787 -25.824   1:    9.083 105.871  66.806 159.646 119.354 161.304   8.741 1:    9.612  34.487 128.395 156.046  78.359 120.747 156.383 
+dockmodel/SDOCK_ALK1box1_3ljkA_0226_0001_001.pdb dockmodel/SDOCK_ALK1box2_5e3xA_0343_0006_001.pdb  -30.787 -25.260   1:    8.904 127.564  82.329 131.035 114.743 144.263  82.334 1:    9.388  13.464  69.766-178.696  99.871 153.198  82.100 
+dockmodel/SDOCK_ALK1box1_3ljkA_0226_0001_001.pdb dockmodel/SDOCK_ALK1box2_6rjcA_0324_0001_001.pdb  -30.787 -28.403   1:   11.066  65.654  61.802  23.464  79.224 145.026 -11.856 1:    7.409  29.829  91.481 107.851  83.113 128.545 171.471 
+dockmodel/SDOCK_ALK1box1_3ljkA_0226_0001_001.pdb dockmodel/SDOCK_ALK1box2_6rjcA_0324_0006_001.pdb  -30.787 -26.170   1:   10.466  61.432  69.726  43.664  89.524 165.039  16.075 1:    9.000  34.971 113.062 108.245  79.262 124.815 159.601 
+
+#######################bridge linking all of the possible fragment pairs with other two fragments###################
+
+$ ../fraglinking/fraglink ALK1dockfragpair ALK1box1.pdb fraglinking/ALK1fraglink ../fragtermgeo/tripep/ ../fragtermgeo/tetrapep/ ../fragtermgeo/pentpep/ ../fraglib/  # terminal geometry values are saved in the files under "fragtermgeo" directory
+    4 dockmodel/SDOCK_ALK1box1_3ljkA_0226_0001_001.pdb dockmodel/SDOCK_ALK1box2_6rjcA_0324_0001_001.pdb
+    6 dockmodel/SDOCK_ALK1box1_5jscA_0010_0001_001.pdb dockmodel/SDOCK_ALK1box2_5e3xA_0343_0006_001.pdb
+$ ls fraglinking/
+ALK1fraglink_4  ALK1fraglink_6
+$ head fraglinking/ALK1fraglink_4
+TITLE    1  1  2
+REMARK  dock1  1  -30.787 dockmodel/SDOCK_ALK1box1_3ljkA_0226_0001_001.pdb
+REMARK  dock2  0  -28.403 dockmodel/SDOCK_ALK1box2_6rjcA_0324_0001_001.pdb
+REMARK  link ../fraglib//tp_4o0lA_0097.pdb
+REMARK  score   -2.715    0.113   0.014   0.000  -3.183
+ATOM      1  N   THR A 165      10.294   0.216   2.596
+ATOM      2  CA  THR A 165       9.094   0.234   3.428
+ATOM      3  C   THR A 165       7.912  -0.197   2.563
+ATOM      4  O   THR A 165       8.009  -1.218   1.852
+ATOM      5  N   SER A 166       6.821   0.549   2.584
+$ head  -46 fraglinking/ALK1fraglink_4 | tail
+TITLE    2  1  1
+REMARK  dock1  1  -30.787 dockmodel/SDOCK_ALK1box1_3ljkA_0226_0001_001.pdb
+REMARK  dock2  1  -28.403 dockmodel/SDOCK_ALK1box2_6rjcA_0324_0001_001.pdb
+REMARK  link ../fraglib//Pp_2bcmA_0121.pdb
+REMARK  score    2.777    0.169   0.000   0.000  -1.900
+ATOM      1  N   LYS A 123       1.308  -2.181   3.566
+ATOM      2  CA  LYS A 123       2.579  -2.946   3.604
+ATOM      3  C   LYS A 123       3.335  -2.708   4.930
+ATOM      4  O   LYS A 123       3.253  -1.605   5.518
+ATOM      5  N   PRO A 124       4.061  -3.730   5.427
+
+#######################Assemble the four fragments to a cyclic peptide structure###################
+
+$ ../utility/AssembleCyc fraglinking/ALK1fraglink_4 AssembledCyc/ALK1Cyc_4.pdb 8 X  #8: maximium total length of the linking fragments, X: cyclic peptide chain id
+fraglinking/ALK1fraglink_4 dockmodel/SDOCK_ALK1box1_3ljkA_0226_0001_001.pdb dockmodel/SDOCK_ALK1box2_6rjcA_0324_0001_001.pdb
+$ ../utility/AssembleCyc fraglinking/ALK1fraglink_6 AssembledCyc/ALK1Cyc_6.pdb 8 X
+fraglinking/ALK1fraglink_6 dockmodel/SDOCK_ALK1box1_5jscA_0010_0001_001.pdb dockmodel/SDOCK_ALK1box2_5e3xA_0343_0006_001.pdb
+$ head AssembledCyc/ALK1Cyc_4.pdb #example of the output cyclic peptide structure, in the REMARCK section, you can see the backbone hydrogen bonding information
+TITLE  1
+REMARK  dock1 dockmodel/SDOCK_ALK1box1_3ljkA_0226_0001_001.pdb
+REMARK  dock2 dockmodel/SDOCK_ALK1box2_6rjcA_0324_0001_001.pdb
+REMARK  link1 ./fraglib//tp_4o0lA_0097.pdb 0
+REMARK  link2 ./fraglib//Pp_2bcmA_0121.pdb 0
+REMARK  score  -59.128  -30.787 -28.403  -2.715   2.777
+REMARK  resn 12   4  5  4  3
+REMARK  backbone HB No.  2
+REMARK  HB  1 [VAL X   4]--[TRP X   1]    2.092
+REMARK  HB  2 [PHE X  11]--[PHE X   8]    2.033
+$ head AssembledCyc/ALK1Cyc_6.pdb
+TITLE  1
+REMARK  dock1 dockmodel/SDOCK_ALK1box1_5jscA_0010_0001_001.pdb
+REMARK  dock2 dockmodel/SDOCK_ALK1box2_5e3xA_0343_0006_001.pdb
+REMARK  link1 ./fraglib//Tp_5a7gA_0218.pdb 0
+REMARK  link2 ./fraglib//tp_5y0eA_0340.pdb 0
+REMARK  score  -58.195  -33.047 -25.260  -2.309   2.421
+REMARK  resn 11   4  3  4  4
+REMARK  backbone HB No.  2
+REMARK  HB  1 [PHE X   4]--[TRP X   1]    2.044
+REMARK  HB  2 [PHE X   9]--[PRO X   6]    2.118
+
+#######################select the best cyclic peptides and build the peptide-target complex structures###################
+
+$ ../utility/SelectBuildcomplex AssembledCyc/ALK1Cyc_6.pdb -55.0 2 -60.0 3 complexmodel/ ALK1box1.pdb # with screening thresholds, -55.0: Rosetta ddG, 2: backbone HB, -60.0: ddG-1.5*HB, 3: only save the top 3 
+====>  2 complex model built for AssembledCyc/ALK1Cyc_6.pdb
+$ ../utility/SelectBuildcomplex AssembledCyc/ALK1Cyc_4.pdb -55.0 2 -60.0 3 complexmodel/ ALK1box1.pdb
+====>  3 complex model built for AssembledCyc/ALK1Cyc_4.pdb
+$ ls complexmodel/
+ALK1Cyc_4_1.pdb  ALK1Cyc_4_2.pdb  ALK1Cyc_4_3.pdb  ALK1Cyc_6_1.pdb  ALK1Cyc_6_2.pdb
+
+#######################Sequence design using Rosetta scripts###################
+
+$ cp complexmodel/ALK1Cyc_4_1.pdb RosettaSeqDes/scaffold/
+$ cp complexmodel/ALK1Cyc_6_1.pdb RosettaSeqDes/scaffold/
+$ cd RosettaSeqDes
+$ ls scaffold/*.pdb > ALK1cases
+$ more SeqDes20.sh #see the details of the scripts in "design_lcyc.xml"
+#!/bin/bash
+
+cat $1 | while read structure
+do
+	rosetta_scripts.linuxgccrelease -s $structure -beta -ignore_zero_occupancy false -nstruct 20 -ex1 -ex2aro -parser:protocol  design_lcyc.xml
+done
+$ ./SeqDes20.sh testcase > log
+$ ls ALK1Cyc_?_1_*.pdb #the 4 sequence design models as examples
+ALK1Cyc_4_1_0001.pdb  ALK1Cyc_4_1_0002.pdb  ALK1Cyc_6_1_0001.pdb  ALK1Cyc_6_1_0002.pdb
+
+#######################Selection and MD simulation study############################
+.....................
+
+#################################THE END##############################################################
+
