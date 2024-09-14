@@ -1,0 +1,52 @@
+HEADER    SDOCK model file
+REMARK    static ALK1box1.pdb
+REMARK    mobile ../fraglib/preprocessed/Tp_p_3ljkA_0226.pdb
+REMARK    shift vector    0.000   0.000   0.000
+REMARK    record file dockresult/ALK1box1_3ljkA_0226
+REMARK    cluster     2 : member     1
+REMARK    score  -28.437
+REMARK    LIGAND ONLY
+ATOM      1  N   TRP A 255       0.879  -2.002   4.308
+ATOM      2  CA  TRP A 255       1.422  -0.936   3.511
+ATOM      3  C   TRP A 255       0.353  -0.076   2.873
+ATOM      4  O   TRP A 255      -0.704  -0.581   2.527
+ATOM      5  CB  TRP A 255       2.368  -1.525   2.430
+ATOM      6  CG  TRP A 255       3.515  -2.292   3.004
+ATOM      7  CD1 TRP A 255       4.602  -1.783   3.623
+ATOM      8  CD2 TRP A 255       3.683  -3.713   2.988
+ATOM      9  NE1 TRP A 255       5.440  -2.797   3.995
+ATOM     10  CE2 TRP A 255       4.894  -3.993   3.619
+ATOM     11  CE3 TRP A 255       2.916  -4.786   2.480
+ATOM     12  CZ2 TRP A 255       5.363  -5.320   3.779
+ATOM     13  CZ3 TRP A 255       3.374  -6.070   2.636
+ATOM     14  CH2 TRP A 255       4.582  -6.326   3.281
+ATOM     15  N   ASP A 256       0.636   1.227   2.715
+ATOM     16  CA AASP A 256      -0.350   2.161   2.174
+ATOM     17  C   ASP A 256      -0.732   1.851   0.725
+ATOM     18  O   ASP A 256      -1.788   2.294   0.253
+ATOM     19  CB AASP A 256       0.179   3.595   2.226
+ATOM     20  CG AASP A 256       0.267   4.140   3.640
+ATOM     21  OD1AASP A 256      -0.398   3.584   4.558
+ATOM     22  OD2AASP A 256       0.956   5.171   3.815
+ATOM     23  N   TRP A 257       0.097   1.085   0.027
+ATOM     24  CA  TRP A 257      -0.163   0.667  -1.353
+ATOM     25  C   TRP A 257      -1.018  -0.596  -1.470
+ATOM     26  O   TRP A 257      -1.269  -1.084  -2.595
+ATOM     27  CB  TRP A 257       1.134   0.583  -2.142
+ATOM     28  CG  TRP A 257       2.307  -0.071  -1.456
+ATOM     29  CD1 TRP A 257       3.365   0.580  -0.918
+ATOM     30  CD2 TRP A 257       2.589  -1.486  -1.271
+ATOM     31  NE1 TRP A 257       4.280  -0.314  -0.400
+ATOM     32  CE2 TRP A 257       3.837  -1.590  -0.626
+ATOM     33  CE3 TRP A 257       1.914  -2.672  -1.629
+ATOM     34  CZ2 TRP A 257       4.399  -2.817  -0.282
+ATOM     35  CZ3 TRP A 257       2.501  -3.884  -1.322
+ATOM     36  CH2 TRP A 257       3.734  -3.937  -0.669
+ATOM     37  N   VAL A 258      -1.502  -1.089  -0.348
+ATOM     38  CA  VAL A 258      -2.462  -2.211  -0.312
+ATOM     39  C   VAL A 258      -3.832  -1.662   0.177
+ATOM     40  O   VAL A 258      -3.992  -1.286   1.348
+ATOM     41  CB  VAL A 258      -2.035  -3.306   0.669
+ATOM     42  CG1 VAL A 258      -3.096  -4.478   0.738
+ATOM     43  CG2 VAL A 258      -0.641  -3.865   0.276
+END

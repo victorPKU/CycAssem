@@ -1,0 +1,51 @@
+HEADER    SDOCK model file
+REMARK    static ALK1box2.pdb
+REMARK    mobile ../fraglib/preprocessed/Tp_p_5e3xA_0343.pdb
+REMARK    shift vector  -11.952   0.004  -0.002
+REMARK    record file dockresult/ALK1box2_5e3xA_0343
+REMARK    cluster     2 : member     1
+REMARK    score  -26.753
+REMARK    LIGAND ONLY
+ATOM      1  N   PRO A 394      13.343  -4.803   2.712
+ATOM      2  CA  PRO A 394      12.283  -4.164   3.502
+ATOM      3  C   PRO A 394      12.285  -2.639   3.456
+ATOM      4  O   PRO A 394      11.259  -2.023   3.742
+ATOM      5  CB  PRO A 394      12.623  -4.601   4.930
+ATOM      6  CG  PRO A 394      14.118  -4.704   4.927
+ATOM      7  CD  PRO A 394      14.433  -5.310   3.570
+ATOM      8  N   HIS A 395      13.428  -2.049   3.132
+ATOM      9  CA  HIS A 395      13.627  -0.605   3.226
+ATOM     10  C   HIS A 395      12.455   0.258   2.738
+ATOM     11  O   HIS A 395      11.932   1.099   3.473
+ATOM     12  CB  HIS A 395      14.897  -0.233   2.467
+ATOM     13  CG  HIS A 395      16.124  -0.897   3.010
+ATOM     14  ND1 HIS A 395      16.281  -2.265   3.026
+ATOM     15  CD2 HIS A 395      17.230  -0.383   3.592
+ATOM     16  CE1 HIS A 395      17.443  -2.563   3.577
+ATOM     17  NE2 HIS A 395      18.038  -1.439   3.930
+ATOM     18  N   TRP A 396      12.050   0.038   1.498
+ATOM     19  CA  TRP A 396      11.013   0.845   0.896
+ATOM     20  C   TRP A 396       9.682   0.602   1.594
+ATOM     21  O   TRP A 396       8.849   1.501   1.696
+ATOM     22  CB  TRP A 396      10.903   0.528  -0.594
+ATOM     23  CG  TRP A 396      12.079   1.016  -1.369
+ATOM     24  CD1 TRP A 396      13.032   1.885  -0.941
+ATOM     25  CD2 TRP A 396      12.432   0.653  -2.702
+ATOM     26  NE1 TRP A 396      13.960   2.101  -1.933
+ATOM     27  CE2 TRP A 396      13.612   1.351  -3.026
+ATOM     28  CE3 TRP A 396      11.867  -0.199  -3.657
+ATOM     29  CZ2 TRP A 396      14.239   1.221  -4.262
+ATOM     30  CZ3 TRP A 396      12.485  -0.324  -4.885
+ATOM     31  CH2 TRP A 396      13.665   0.375  -5.177
+ATOM     32  N   PHE A 397       9.505  -0.617   2.094
+ATOM     33  CA  PHE A 397       8.249  -1.025   2.707
+ATOM     34  C   PHE A 397       8.203  -0.615   4.178
+ATOM     35  O   PHE A 397       7.245  -0.900   4.900
+ATOM     36  CB  PHE A 397       8.034  -2.529   2.477
+ATOM     37  CG  PHE A 397       8.100  -2.903   1.029
+ATOM     38  CD1 PHE A 397       7.002  -2.718   0.204
+ATOM     39  CD2 PHE A 397       9.283  -3.360   0.466
+ATOM     40  CE1 PHE A 397       7.069  -3.019  -1.152
+ATOM     41  CE2 PHE A 397       9.358  -3.656  -0.886
+ATOM     42  CZ  PHE A 397       8.254  -3.488  -1.696
+END

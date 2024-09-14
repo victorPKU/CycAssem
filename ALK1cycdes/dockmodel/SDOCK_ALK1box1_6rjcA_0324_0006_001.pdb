@@ -1,0 +1,47 @@
+HEADER    SDOCK model file
+REMARK    static ALK1box1.pdb
+REMARK    mobile ../fraglib/preprocessed/Tp_p_6rjcA_0324.pdb
+REMARK    shift vector    0.000   0.000   0.000
+REMARK    record file dockresult/ALK1box1_6rjcA_0324
+REMARK    cluster     6 : member     1
+REMARK    score  -28.422
+REMARK    LIGAND ONLY
+ATOM      1  N  APHE A 434       7.284   0.399   1.393
+ATOM      2  CA APHE A 434       6.549  -0.252   0.318
+ATOM      3  C  APHE A 434       5.142   0.346   0.243
+ATOM      4  O  APHE A 434       4.511   0.613   1.270
+ATOM      5  CB APHE A 434       6.399  -1.763   0.564
+ATOM      6  CG APHE A 434       7.698  -2.558   0.586
+ATOM      7  CD1APHE A 434       8.686  -2.395  -0.381
+ATOM      8  CD2APHE A 434       7.897  -3.519   1.568
+ATOM      9  CE1APHE A 434       9.855  -3.156  -0.346
+ATOM     10  CE2APHE A 434       9.067  -4.279   1.604
+ATOM     11  CZ APHE A 434      10.043  -4.091   0.646
+ATOM     12  N   LEU A 435       4.629   0.516  -0.977
+ATOM     13  CA  LEU A 435       3.321   1.137  -1.164
+ATOM     14  C   LEU A 435       2.225   0.502  -0.311
+ATOM     15  O   LEU A 435       1.355   1.210   0.204
+ATOM     16  CB  LEU A 435       2.926   1.124  -2.640
+ATOM     17  CG  LEU A 435       1.512   1.609  -2.971
+ATOM     18  CD1 LEU A 435       1.270   3.036  -2.490
+ATOM     19  CD2 LEU A 435       1.248   1.513  -4.470
+ATOM     20  N   MET A 436       2.212  -0.825  -0.165
+ATOM     21  CA  MET A 436       1.143  -1.428   0.622
+ATOM     22  C   MET A 436       1.019  -0.753   1.981
+ATOM     23  O   MET A 436      -0.086  -0.579   2.502
+ATOM     24  CB  MET A 436       1.395  -2.917   0.827
+ATOM     25  CG  MET A 436       0.266  -3.619   1.597
+ATOM     26  SD  MET A 436      -1.353  -3.519   0.800
+ATOM     27  CE  MET A 436      -1.016  -4.564  -0.607
+ATOM     28  N   PHE A 437       2.144  -0.395   2.580
+ATOM     29  CA  PHE A 437       2.140   0.094   3.960
+ATOM     30  C   PHE A 437       1.830   1.567   4.069
+ATOM     31  O   PHE A 437       1.770   2.076   5.196
+ATOM     32  CB  PHE A 437       3.351  -0.501   4.675
+ATOM     33  CG  PHE A 437       3.415  -1.998   4.456
+ATOM     34  CD1 PHE A 437       2.314  -2.796   4.762
+ATOM     35  CD2 PHE A 437       4.476  -2.588   3.799
+ATOM     36  CE1 PHE A 437       2.307  -4.155   4.488
+ATOM     37  CE2 PHE A 437       4.472  -3.962   3.527
+ATOM     38  CZ  PHE A 437       3.383  -4.733   3.871
+END
