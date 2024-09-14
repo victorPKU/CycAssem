@@ -1,0 +1,162 @@
+TITLE  1
+REMARK  dock1 dockmodel/SDOCK_ALK1box1_5jscA_0010_0001_001.pdb
+REMARK  dock2 dockmodel/SDOCK_ALK1box2_5e3xA_0343_0006_001.pdb
+REMARK  link1 ./fraglib//Tp_5a7gA_0218.pdb 0
+REMARK  link2 ./fraglib//tp_5y0eA_0340.pdb 0
+REMARK  score  -58.195  -33.047 -25.260  -2.309   2.421
+REMARK  resn 11   4  3  4  4
+REMARK  backbone HB No.  2
+REMARK  HB  1 [PHE X   4]--[TRP X   1]    2.044
+REMARK  HB  2 [PHE X   9]--[PRO X   6]    2.118
+ATOM      1  N   TRP X   1       4.486   2.477   1.950
+ATOM      2  CA  TRP X   1       3.478   1.586   2.001
+ATOM      3  C   TRP X   1       3.483   0.512   3.084
+ATOM      4  O   TRP X   1       4.521  -0.116   3.329
+ATOM      5  N   PRO X   2       2.340   0.255   3.727
+ATOM      6  CA  PRO X   2       2.300  -0.763   4.786
+ATOM      7  C   PRO X   2       2.404  -2.185   4.269
+ATOM      8  O   PRO X   2       2.382  -3.120   5.078
+ATOM      9  CB  PRO X   2       0.951  -0.505   5.478
+ATOM     10  CG  PRO X   2       0.139   0.257   4.501
+ATOM     11  CD  PRO X   2       1.097   1.040   3.647
+ATOM     12  N   PHE X   3       2.502  -2.375   2.951
+ATOM     13  CA  PHE X   3       2.916  -3.659   2.408
+ATOM     14  C   PHE X   3       4.329  -4.026   2.834
+ATOM     15  O   PHE X   3       4.701  -5.198   2.752
+ATOM     16  CB  PHE X   3       2.871  -3.635   0.873
+ATOM     17  CG  PHE X   3       1.484  -3.647   0.282
+ATOM     18  CD1 PHE X   3       0.549  -4.599   0.661
+ATOM     19  CD2 PHE X   3       1.129  -2.716  -0.694
+ATOM     20  CE1 PHE X   3      -0.718  -4.610   0.109
+ATOM     21  CE2 PHE X   3      -0.142  -2.726  -1.261
+ATOM     22  CZ  PHE X   3      -1.069  -3.673  -0.860
+ATOM     23  N   PHE X   4       5.131  -3.052   3.264
+ATOM     24  CA  PHE X   4       6.522  -3.284   3.618
+ATOM     25  C   PHE X   4       7.283  -4.315   3.694
+ATOM     26  O   PHE X   4       7.569  -4.788   4.795
+ATOM     27  N   GLU X   5       7.773  -4.800   2.566
+ATOM     28  CA  GLU X   5       8.795  -5.837   2.519
+ATOM     29  C   GLU X   5      10.083  -5.322   1.880
+ATOM     30  O   GLU X   5      10.778  -6.069   1.195
+ATOM     31  N   PRO X   6      10.426  -4.050   2.083
+ATOM     32  CA  PRO X   6      11.360  -3.487   1.233
+ATOM     33  C   PRO X   6      12.318  -2.706   2.128
+ATOM     34  O   PRO X   6      11.984  -1.603   2.556
+ATOM     35  N   HIS X   7      13.472  -3.289   2.426
+ATOM     36  CA  HIS X   7      14.402  -2.744   3.412
+ATOM     37  C   HIS X   7      14.599  -1.223   3.367
+ATOM     38  O   HIS X   7      14.401  -0.524   4.364
+ATOM     39  CB  HIS X   7      15.747  -3.447   3.260
+ATOM     40  CG  HIS X   7      15.668  -4.926   3.478
+ATOM     41  ND1 HIS X   7      14.906  -5.754   2.682
+ATOM     42  CD2 HIS X   7      16.219  -5.717   4.425
+ATOM     43  CE1 HIS X   7      15.011  -6.995   3.118
+ATOM     44  NE2 HIS X   7      15.801  -7.000   4.176
+ATOM     45  N   TRP X   8      14.986  -0.723   2.205
+ATOM     46  CA  TRP X   8      15.287   0.684   2.060
+ATOM     47  C   TRP X   8      14.024   1.515   2.234
+ATOM     48  O   TRP X   8      14.073   2.643   2.724
+ATOM     49  CB  TRP X   8      15.918   0.944   0.694
+ATOM     50  CG  TRP X   8      17.295   0.382   0.585
+ATOM     51  CD1 TRP X   8      18.073  -0.067   1.605
+ATOM     52  CD2 TRP X   8      18.049   0.198  -0.611
+ATOM     53  NE1 TRP X   8      19.282  -0.512   1.121
+ATOM     54  CE2 TRP X   8      19.288  -0.361  -0.241
+ATOM     55  CE3 TRP X   8      17.797   0.450  -1.964
+ATOM     56  CZ2 TRP X   8      20.271  -0.675  -1.175
+ATOM     57  CZ3 TRP X   8      18.774   0.143  -2.890
+ATOM     58  CH2 TRP X   8      19.995  -0.422  -2.495
+ATOM     59  N   PHE X   9      12.892   0.936   1.848
+ATOM     60  CA  PHE X   9      11.618   1.641   1.867
+ATOM     61  C   PHE X   9      11.185   1.519   3.287
+ATOM     62  O   PHE X   9      11.009   0.401   3.770
+ATOM     63  N   ASN X  10      10.792   2.631   3.920
+ATOM     64  CA  ASN X  10       9.576   2.698   4.729
+ATOM     65  C   ASN X  10       8.239   3.133   4.205
+ATOM     66  O   ASN X  10       7.407   3.603   5.005
+ATOM     67  N   PHE X  11       7.997   2.981   2.918
+ATOM     68  CA  PHE X  11       6.717   3.389   2.366
+ATOM     69  C   PHE X  11       5.739   2.195   2.326
+ATOM     70  O   PHE X  11       6.093   1.066   2.687
+END
+TITLE  2
+REMARK  dock1 dockmodel/SDOCK_ALK1box1_5jscA_0010_0001_001.pdb
+REMARK  dock2 dockmodel/SDOCK_ALK1box2_5e3xA_0343_0006_001.pdb
+REMARK  link1 ./fraglib//Tp_6p2nA_0259.pdb 0
+REMARK  link2 ./fraglib//tp_5y0eA_0340.pdb 0
+REMARK  score  -57.937  -33.047 -25.260  -2.051   2.421
+REMARK  resn 11   4  3  4  4
+REMARK  backbone HB No.  2
+REMARK  HB  1 [PHE X   4]--[TRP X   1]    2.044
+REMARK  HB  2 [PHE X   9]--[PRO X   6]    2.118
+ATOM      1  N   TRP X   1       4.549   2.388   2.002
+ATOM      2  CA  TRP X   1       3.478   1.586   2.001
+ATOM      3  C   TRP X   1       3.483   0.512   3.084
+ATOM      4  O   TRP X   1       4.521  -0.116   3.329
+ATOM      5  N   PRO X   2       2.340   0.255   3.727
+ATOM      6  CA  PRO X   2       2.300  -0.763   4.786
+ATOM      7  C   PRO X   2       2.404  -2.185   4.269
+ATOM      8  O   PRO X   2       2.382  -3.120   5.078
+ATOM      9  CB  PRO X   2       0.951  -0.505   5.478
+ATOM     10  CG  PRO X   2       0.139   0.257   4.501
+ATOM     11  CD  PRO X   2       1.097   1.040   3.647
+ATOM     12  N   PHE X   3       2.502  -2.375   2.951
+ATOM     13  CA  PHE X   3       2.916  -3.659   2.408
+ATOM     14  C   PHE X   3       4.329  -4.026   2.834
+ATOM     15  O   PHE X   3       4.701  -5.198   2.752
+ATOM     16  CB  PHE X   3       2.871  -3.635   0.873
+ATOM     17  CG  PHE X   3       1.484  -3.647   0.282
+ATOM     18  CD1 PHE X   3       0.549  -4.599   0.661
+ATOM     19  CD2 PHE X   3       1.129  -2.716  -0.694
+ATOM     20  CE1 PHE X   3      -0.718  -4.610   0.109
+ATOM     21  CE2 PHE X   3      -0.142  -2.726  -1.261
+ATOM     22  CZ  PHE X   3      -1.069  -3.673  -0.860
+ATOM     23  N   PHE X   4       5.131  -3.052   3.264
+ATOM     24  CA  PHE X   4       6.522  -3.284   3.618
+ATOM     25  C   PHE X   4       7.283  -4.315   3.694
+ATOM     26  O   PHE X   4       7.569  -4.788   4.795
+ATOM     27  N   GLU X   5       7.773  -4.800   2.566
+ATOM     28  CA  GLU X   5       8.795  -5.837   2.519
+ATOM     29  C   GLU X   5      10.083  -5.322   1.880
+ATOM     30  O   GLU X   5      10.778  -6.069   1.195
+ATOM     31  N   PRO X   6      10.426  -4.050   2.083
+ATOM     32  CA  PRO X   6      11.360  -3.487   1.233
+ATOM     33  C   PRO X   6      12.318  -2.706   2.128
+ATOM     34  O   PRO X   6      11.984  -1.603   2.556
+ATOM     35  N   HIS X   7      13.472  -3.289   2.426
+ATOM     36  CA  HIS X   7      14.402  -2.744   3.412
+ATOM     37  C   HIS X   7      14.599  -1.223   3.367
+ATOM     38  O   HIS X   7      14.401  -0.524   4.364
+ATOM     39  CB  HIS X   7      15.747  -3.447   3.260
+ATOM     40  CG  HIS X   7      15.668  -4.926   3.478
+ATOM     41  ND1 HIS X   7      14.906  -5.754   2.682
+ATOM     42  CD2 HIS X   7      16.219  -5.717   4.425
+ATOM     43  CE1 HIS X   7      15.011  -6.995   3.118
+ATOM     44  NE2 HIS X   7      15.801  -7.000   4.176
+ATOM     45  N   TRP X   8      14.986  -0.723   2.205
+ATOM     46  CA  TRP X   8      15.287   0.684   2.060
+ATOM     47  C   TRP X   8      14.024   1.515   2.234
+ATOM     48  O   TRP X   8      14.073   2.643   2.724
+ATOM     49  CB  TRP X   8      15.918   0.944   0.694
+ATOM     50  CG  TRP X   8      17.295   0.382   0.585
+ATOM     51  CD1 TRP X   8      18.073  -0.067   1.605
+ATOM     52  CD2 TRP X   8      18.049   0.198  -0.611
+ATOM     53  NE1 TRP X   8      19.282  -0.512   1.121
+ATOM     54  CE2 TRP X   8      19.288  -0.361  -0.241
+ATOM     55  CE3 TRP X   8      17.797   0.450  -1.964
+ATOM     56  CZ2 TRP X   8      20.271  -0.675  -1.175
+ATOM     57  CZ3 TRP X   8      18.774   0.143  -2.890
+ATOM     58  CH2 TRP X   8      19.995  -0.422  -2.495
+ATOM     59  N   PHE X   9      12.892   0.936   1.848
+ATOM     60  CA  PHE X   9      11.618   1.641   1.867
+ATOM     61  C   PHE X   9      11.237   1.548   3.314
+ATOM     62  O   PHE X   9      12.069   1.636   4.218
+ATOM     63  N   ASN X  10       9.929   1.387   3.585
+ATOM     64  CA  ASN X  10       8.795   1.397   2.665
+ATOM     65  C   ASN X  10       7.790   2.376   3.218
+ATOM     66  O   ASN X  10       7.517   2.387   4.431
+ATOM     67  N   ALA X  11       7.197   3.153   2.323
+ATOM     68  CA  ALA X  11       6.153   4.109   2.710
+ATOM     69  C   ALA X  11       4.782   3.442   2.807
+ATOM     70  O   ALA X  11       3.923   3.896   3.579
+END
