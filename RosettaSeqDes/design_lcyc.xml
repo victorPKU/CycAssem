@@ -1,1 +1,120 @@
+<ROSETTASCRIPTS>
+	<SCOREFXNS>
+        <!--Score with constraint and composition turned on-->
+        <ScoreFunction name="beta_cst_comp" weights="ref2015_cart">
+            <!--Reweight scoretype="hbond_lr_bb" weight="5.0" /-->
+            <!--Reweight scoretype="hbond_sr_bb" weight="3.0" /-->
+            <!--Reweight scoretype="hbond_bb_sc" weight="3.0" /-->
+            <Reweight scoretype="atom_pair_constraint" weight="1.0"/>
+            <Reweight scoretype="angle_constraint" weight="1.0"/>
+            <Reweight scoretype="dihedral_constraint" weight="1.0"/>
+            <Reweight scoretype="aa_composition" weight="1.0" />
+        </ScoreFunction>
+	</SCOREFXNS>
+    
+    <RESIDUE_SELECTORS>
+        
+        
+        <!--selecting the chains-->
+        <Chain name="protein" chains="1"/>
+        <Chain name="CYC" chains="2"/>
+        <Neighborhood name="interface" selector="protein" distance="10.0"/>
+        <And name="interface_A" selectors="interface,CYC"/>
+        <Or name="pro_int" selectors="interface,protein"/>
+        
+        <!--making sure that D and L residue are designed properly-->
+        <Phi name="negPhi" select_positive_phi="false" />
+        <And name="negPhi_pep" selectors="CYC,negPhi"/>
+        
+        <!--SHA is the main reason for binding, so should not be designed away-->
+        <!--ResidueName name="SHA_sel" residue_names="SHA" -->
+        <!--ResiduePDBInfoHasLabel name="xlink" property="XLINK" -->
+    </RESIDUE_SELECTORS>
+    
+	<TASKOPERATIONS>
+        
+        <!--proper resfiles for designing D or L residues-->
+        <ReadResfile name="l_res" filename="./relax_design/l_res.txt" selector="negPhi_pep"/>
+        
+        <!--setting up the designable and repackable regions so that HDAC does not get designed and only parts around binder repack-->
+        <RestrictChainToRepacking name="only_repack_chain" chain="1"/>
+        <!--OperateOnResidueSubset name="no_repack_HDAC2_ligands" selector="HDAC2_ligands">
+            <PreventRepackingRLT/>
+        </OperateOnResidueSubset-->
+        <!--OperateOnResidueSubset name="no_repack_xlink" selector="xlink">
+            <PreventRepackingRLT/>
+        </OperateOnResidueSubset-->
+        <!--OperateOnResidueSubset name="no_design_SHA" selector="SHA_sel">
+            <RestrictToRepackingRLT/>
+        </OperateOnResidueSubset-->
+        <DisallowIfNonnative name="no_cys" disallow_aas="C"/>
+        <OperateOnResidueSubset name="no_repack_except_interface">
+            <And>
+                <Chain chains="2"/>
+                   <Not>
+                      <Neighborhood distance="10.0">
+                          <Chain chains="1"/>
+                      </Neighborhood>
+                   </Not>
+            </And>
+            <PreventRepackingRLT />
+        </OperateOnResidueSubset>
+        
+        <!--design related task operations-->
+        <LimitAromaChi2 name="limchi2"/>
+        <IncludeCurrent name="current"/>
+        
+	</TASKOPERATIONS>
+    
+	<FILTERS>
 
+        <Ddg name="ddg" threshold="-25" chain_num="2" confidence="1"/>
+        
+	</FILTERS>
+    
+	<MOVERS>
+        
+        <!--autoamtically set a useful atom tree that does not mess up minimization-->
+        <AtomTree name="docking_tree" docking_ft="1"/>
+
+        <!--Adds the required constraints to peptide bond to keep it close-->
+        <PeptideCyclizeMover name="cyclize" residue_selector="CYC"/>
+        
+        <!--Add overall comp-->
+        <AddCompositionConstraintMover name="general_comp" filename="./relax_design/general2.comp" selector="CYC" />
+
+        <FastRelax name="relax"  scorefxn="beta_cst_comp" cartesian="true">
+            <MoveMap name="specific_relax">
+                <Jump number="1" setting="0" />
+                <Chain number="1" chi="1" bb="0"/> #have to stop from minimization or it takes forever
+            </MoveMap>
+        </FastRelax>
+        
+        <!--normal design-->
+        <FastDesign name="design" task_operations="l_res,only_repack_chain,limchi2,current" scorefxn="beta_cst_comp" repeats="3" ramp_down_constraints="false" cartesian="true">
+            <MoveMap name="specific_design">
+                <Jump number="1" setting="0" />
+                <Chain number="1" chi="1" bb="0"/> #have to stop from minimization or it takes forever
+            </MoveMap>
+        </FastDesign>
+
+        <!--Analyze-->
+        <InterfaceAnalyzerMover name="analyze_interface" scorefxn="beta_cst_comp" packstat="true" interface_sc="true" ligandchain="X"/>
+	</MOVERS>
+    
+	<APPLY_TO_POSE>
+	</APPLY_TO_POSE>
+    
+	<PROTOCOLS>
+        <Add mover="docking_tree"/>
+        <Add mover="cyclize"/>
+        <Add mover="relax"/>
+        <Add mover="cyclize"/>
+        <Add mover="general_comp"/>
+        <Add mover="design"/>
+        <!--Add mover="cyclize"/-->
+        <Add filter="ddg"/>
+        <Add mover="analyze_interface"/>
+	</PROTOCOLS>
+	<OUTPUT />
+</ROSETTASCRIPTS>
