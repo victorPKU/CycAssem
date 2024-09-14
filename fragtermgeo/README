@@ -1,1 +1,5 @@
-
+$ gcc calTerminalgeo.c -o calTerminalgeo -lm
+$ ./calTerminalgeo ../fraglib/Tp_3ljkA_0226.pdb 4  #fragstructure and AA lenth
+../fraglib/Tp_3ljkA_0226.pdb CA-CA     5.598
+../fraglib/Tp_3ljkA_0226.pdb N1-Cn    86.963  108.414   76.061
+../fraglib/Tp_3ljkA_0226.pdb C1-Nn    52.582   49.543   51.423
