@@ -1,1 +1,88 @@
-
+TITLE    1  1  2
+REMARK  dock1  1  -30.787 dockmodel/SDOCK_ALK1box1_3ljkA_0226_0001_001.pdb
+REMARK  dock2  0  -28.403 dockmodel/SDOCK_ALK1box2_6rjcA_0324_0001_001.pdb
+REMARK  link ../fraglib//tp_4o0lA_0097.pdb
+REMARK  score   -2.715    0.113   0.014   0.000  -3.183
+ATOM      1  N   THR A 165      10.294   0.216   2.596
+ATOM      2  CA  THR A 165       9.094   0.234   3.428
+ATOM      3  C   THR A 165       7.912  -0.197   2.563
+ATOM      4  O   THR A 165       8.009  -1.218   1.852
+ATOM      5  N   SER A 166       6.821   0.549   2.584
+ATOM      6  CA  SER A 166       5.644   0.170   1.811
+ATOM      7  C   SER A 166       4.590   1.265   1.949
+ATOM      8  O   SER A 166       4.645   2.072   2.885
+ATOM      9  N   ILE A 167       3.659   1.300   1.000
+ATOM     10  CA  ILE A 167       2.414   2.026   1.165
+ATOM     11  C   ILE A 167       1.735   1.658   2.485
+ATOM     12  O   ILE A 167       1.019   2.478   3.063
+END
+TITLE    1  2  2
+REMARK  dock1  1  -30.787 dockmodel/SDOCK_ALK1box1_3ljkA_0226_0001_001.pdb
+REMARK  dock2  0  -28.403 dockmodel/SDOCK_ALK1box2_6rjcA_0324_0001_001.pdb
+REMARK  link ../fraglib//tp_3jzlA_0217.pdb
+REMARK  score   -1.219    0.192   0.970   0.224  -3.183
+ATOM      1  N   VAL A 387      10.250   0.362   2.564
+ATOM      2  CA  VAL A 387       9.110   0.074   3.467
+ATOM      3  C   VAL A 387       8.105   1.196   3.195
+ATOM      4  O   VAL A 387       8.264   2.289   3.726
+ATOM      5  N   GLN A 388       7.083   0.902   2.397
+ATOM      6  CA  GLN A 388       6.125   1.922   1.899
+ATOM      7  C   GLN A 388       4.745   1.392   1.609
+ATOM      8  O   GLN A 388       4.514   0.195   1.605
+ATOM      9  N   GLY A 389       3.815   2.311   1.341
+ATOM     10  CA  GLY A 389       2.420   1.949   1.138
+ATOM     11  C   GLY A 389       1.757   1.750   2.505
+ATOM     12  O   GLY A 389       2.379   2.018   3.550
+END
+TITLE    2  1  1
+REMARK  dock1  1  -30.787 dockmodel/SDOCK_ALK1box1_3ljkA_0226_0001_001.pdb
+REMARK  dock2  1  -28.403 dockmodel/SDOCK_ALK1box2_6rjcA_0324_0001_001.pdb
+REMARK  link ../fraglib//Pp_2bcmA_0121.pdb
+REMARK  score    2.777    0.169   0.000   0.000  -1.900
+ATOM      1  N   LYS A 123       1.308  -2.181   3.566
+ATOM      2  CA  LYS A 123       2.579  -2.946   3.604
+ATOM      3  C   LYS A 123       3.335  -2.708   4.930
+ATOM      4  O   LYS A 123       3.253  -1.605   5.518
+ATOM      5  N   PRO A 124       4.061  -3.730   5.427
+ATOM      6  CA  PRO A 124       4.759  -3.656   6.690
+ATOM      7  C   PRO A 124       6.064  -2.845   6.677
+ATOM      8  O   PRO A 124       6.684  -2.620   5.619
+ATOM      9  N   THR A 125       6.469  -2.447   7.871
+ATOM     10  CA  THR A 125       7.754  -1.788   8.062
+ATOM     11  C   THR A 125       8.888  -2.750   7.746
+ATOM     12  O   THR A 125       8.734  -3.960   7.855
+ATOM     13  N   GLY A 126      10.022  -2.187   7.337
+ATOM     14  CA  GLY A 126      11.271  -2.936   7.165
+ATOM     15  C   GLY A 126      12.029  -2.489   5.938
+ATOM     16  O   GLY A 126      11.593  -1.584   5.243
+ATOM     17  N   GLU A 127      13.151  -3.144   5.679
+ATOM     18  CA  GLU A 127      14.040  -2.769   4.583
+ATOM     19  C   GLU A 127      13.631  -3.524   3.320
+ATOM     20  O   GLU A 127      13.593  -4.772   3.314
+END
+TITLE    2  2  1
+REMARK  dock1  1  -30.787 dockmodel/SDOCK_ALK1box1_3ljkA_0226_0001_001.pdb
+REMARK  dock2  1  -28.403 dockmodel/SDOCK_ALK1box2_6rjcA_0324_0001_001.pdb
+REMARK  link ../fraglib//Pp_4y9wA_0081.pdb
+REMARK  score    2.792    0.173   0.000   0.000  -1.900
+ATOM      1  N   THR A 108       3.269  -3.824   2.711
+ATOM      2  CA  THR A 108       2.607  -2.918   3.597
+ATOM      3  C   THR A 108       3.313  -2.741   4.945
+ATOM      4  O   THR A 108       2.954  -1.802   5.685
+ATOM      5  N   SER A 109       4.338  -3.521   5.240
+ATOM      6  CA  SER A 109       5.198  -3.196   6.399
+ATOM      7  C   SER A 109       6.563  -3.811   6.100
+ATOM      8  O   SER A 109       6.700  -4.917   5.575
+ATOM      9  N   THR A 110       7.599  -3.034   6.404
+ATOM     10  CA  THR A 110       8.955  -3.503   6.138
+ATOM     11  C   THR A 110       9.944  -2.779   7.007
+ATOM     12  O   THR A 110       9.798  -1.579   7.288
+ATOM     13  N   SER A 111      11.038  -3.499   7.337
+ATOM     14  CA  SER A 111      12.221  -2.907   7.921
+ATOM     15  C   SER A 111      13.370  -2.759   6.919
+ATOM     16  O   SER A 111      14.458  -2.329   7.320
+ATOM     17  N   VAL A 112      13.121  -3.104   5.665
+ATOM     18  CA  VAL A 112      14.065  -2.805   4.589
+ATOM     19  C   VAL A 112      13.858  -1.342   4.181
+ATOM     20  O   VAL A 112      12.798  -0.767   4.383
+END

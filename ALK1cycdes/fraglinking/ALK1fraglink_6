@@ -1,0 +1,62 @@
+TITLE    1  1  1
+REMARK  dock1  1  -33.047 dockmodel/SDOCK_ALK1box1_5jscA_0010_0001_001.pdb
+REMARK  dock2  1  -25.260 dockmodel/SDOCK_ALK1box2_5e3xA_0343_0006_001.pdb
+REMARK  link ../fraglib//Tp_5a7gA_0218.pdb
+REMARK  score   -2.309    0.201   0.000   0.000  -5.112
+ATOM      1  N   ARG A 339      12.738   2.712   1.866
+ATOM      2  CA  ARG A 339      11.719   1.634   1.873
+ATOM      3  C   ARG A 339      11.185   1.519   3.287
+ATOM      4  O   ARG A 339      11.009   0.401   3.770
+ATOM      5  N   ASN A 340      10.792   2.631   3.920
+ATOM      6  CA  ASN A 340       9.576   2.698   4.729
+ATOM      7  C   ASN A 340       8.239   3.133   4.205
+ATOM      8  O   ASN A 340       7.407   3.603   5.005
+ATOM      9  N   PHE A 341       7.997   2.981   2.918
+ATOM     10  CA  PHE A 341       6.717   3.389   2.366
+ATOM     11  C   PHE A 341       5.739   2.195   2.326
+ATOM     12  O   PHE A 341       6.093   1.066   2.687
+ATOM     13  N   HIS A 342       4.486   2.477   1.950
+ATOM     14  CA  HIS A 342       3.411   1.485   2.023
+ATOM     15  C   HIS A 342       3.517   0.551   0.824
+ATOM     16  O   HIS A 342       3.302   0.968  -0.308
+END
+TITLE    1  2  1
+REMARK  dock1  1  -33.047 dockmodel/SDOCK_ALK1box1_5jscA_0010_0001_001.pdb
+REMARK  dock2  1  -25.260 dockmodel/SDOCK_ALK1box2_5e3xA_0343_0006_001.pdb
+REMARK  link ../fraglib//Tp_6p2nA_0259.pdb
+REMARK  score   -2.051    0.186   0.000   0.315  -5.112
+ATOM      1  N   LEU A 345      11.599   3.048   1.461
+ATOM      2  CA  LEU A 345      11.682   1.626   1.849
+ATOM      3  C   LEU A 345      11.237   1.548   3.314
+ATOM      4  O   LEU A 345      12.069   1.636   4.218
+ATOM      5  N   ASN A 346       9.929   1.387   3.585
+ATOM      6  CA  ASN A 346       8.795   1.397   2.665
+ATOM      7  C   ASN A 346       7.790   2.376   3.218
+ATOM      8  O   ASN A 346       7.517   2.387   4.431
+ATOM      9  N   ALA A 347       7.197   3.153   2.323
+ATOM     10  CA  ALA A 347       6.153   4.109   2.710
+ATOM     11  C   ALA A 347       4.782   3.442   2.807
+ATOM     12  O   ALA A 347       3.923   3.896   3.579
+ATOM     13  N   TRP A 348       4.549   2.388   2.002
+ATOM     14  CA  TRP A 348       3.334   1.553   1.969
+ATOM     15  C   TRP A 348       2.112   2.268   1.415
+ATOM     16  O   TRP A 348       1.451   1.740   0.522
+END
+TITLE    2  1  2
+REMARK  dock1  0  -33.047 dockmodel/SDOCK_ALK1box1_5jscA_0010_0001_001.pdb
+REMARK  dock2  0  -25.260 dockmodel/SDOCK_ALK1box2_5e3xA_0343_0006_001.pdb
+REMARK  link ../fraglib//tp_5y0eA_0340.pdb
+REMARK  score    2.421    0.233   0.189   1.303   0.000
+ATOM      1  N   GLY A 430       4.962  -3.234   3.352
+ATOM      2  CA  GLY A 430       6.394  -3.092   3.581
+ATOM      3  C   GLY A 430       7.283  -4.315   3.694
+ATOM      4  O   GLY A 430       7.569  -4.788   4.795
+ATOM      5  N   GLU A 431       7.773  -4.800   2.566
+ATOM      6  CA  GLU A 431       8.795  -5.837   2.519
+ATOM      7  C   GLU A 431      10.083  -5.322   1.880
+ATOM      8  O   GLU A 431      10.778  -6.069   1.195
+ATOM      9  N   PHE A 432      10.426  -4.050   2.083
+ATOM     10  CA  PHE A 432      11.412  -3.379   1.243
+ATOM     11  C   PHE A 432      12.563  -2.824   2.067
+ATOM     12  O   PHE A 432      12.621  -1.621   2.345
+END
